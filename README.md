@@ -1,4 +1,4 @@
-# Secure Screenshot Capture and Email Sender
+## Secure Screenshot Capture and Email Sender
 
 Automates the process of capturing screenshots from the Windows Credential Manager and sending them via email using DuckyScript and PowerShell.
 

@@ -35,15 +35,15 @@ This project provides an automated solution for capturing screenshots from the W
 
 ## Supported Email Services
 
-- ** Outlook
-- ** Outlook REST API
-- ** Gmail SMTP
-- ** Thunderbird SMTP
-- ** Office 365 SMTP
-- ** Yahoo Mail SMTP
-- ** SendGrid SMTP
-- ** Mailgun API
-- ** Sendinblue API
+-  Outlook
+-  Outlook REST API
+-  Gmail SMTP
+-  Thunderbird SMTP
+-  Office 365 SMTP
+-  Yahoo Mail SMTP
+-  SendGrid SMTP
+-  Mailgun API
+-  Sendinblue API
 
 ## Security Considerations
 

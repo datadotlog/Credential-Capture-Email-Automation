@@ -1,5 +1,7 @@
 # If you want to use some app to send the zip, please replace between the lines 47 to 57 to examples here:
 
+
+
 ## Send the zip file via email using Outlook
 $outlook = New-Object -ComObject Outlook.Application
 $mail = $outlook.CreateItem(0)
@@ -8,6 +10,10 @@ $mail.Subject = "Screenshots"
 $mail.Body = "Attached are the screenshots."
 $attachment = $mail.Attachments.Add($zipFilePath)
 $mail.Send()
+
+
+
+
 
 ## Send the zip file via email using Outlook REST API
 $accessToken = "your_access_token"
@@ -45,6 +51,9 @@ $email = @{
 Invoke-RestMethod -Uri $uri -Method Post -Headers $header -Body ($email | ConvertTo-Json -Depth 10)
 
 
+
+
+
 ## Send the zip file via email using Gmail SMTP
 $smtpServer = "smtp.gmail.com"
 $smtpPort = 587
@@ -63,6 +72,10 @@ $smtp = New-Object Net.Mail.SmtpClient($smtpServer, $smtpPort)
 $smtp.EnableSsl = $true
 $smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
 $smtp.Send($msg)
+
+
+
+
 
 ## Send the zip file via email using Thunderbird SMTP (or any other SMTP server)
 $smtpServer = "smtp.your-email-provider.com"
@@ -83,6 +96,10 @@ $smtp.EnableSsl = $true
 $smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
 $smtp.Send($msg)
 
+
+
+
+
 ## Send the zip file via email using Office 365 SMTP
 $smtpServer = "smtp.office365.com"
 $smtpPort = 587
@@ -101,6 +118,10 @@ $smtp = New-Object Net.Mail.SmtpClient($smtpServer, $smtpPort)
 $smtp.EnableSsl = $true
 $smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
 $smtp.Send($msg)
+
+
+
+
 
 ## Send the zip file via email using Yahoo Mail SMTP
 $smtpServer = "smtp.mail.yahoo.com"
@@ -121,6 +142,10 @@ $smtp.EnableSsl = $true
 $smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
 $smtp.Send($msg)
 
+
+
+
+
 ## Send the zip file via email using SendGrid SMTP
 $smtpServer = "smtp.sendgrid.net"
 $smtpPort = 587
@@ -139,6 +164,10 @@ $smtp = New-Object Net.Mail.SmtpClient($smtpServer, $smtpPort)
 $smtp.EnableSsl = $true
 $smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
 $smtp.Send($msg)
+
+
+
+
 
 ## Send the zip file via email using Mailgun API
 $apiKey = "your_mailgun_api_key"

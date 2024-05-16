@@ -1,7 +1,6 @@
 # If you want to use some app to send the zip, please replace between the lines 47 to 57 to examples here:
 
 ## Send the zip file via email using Outlook
-
 $outlook = New-Object -ComObject Outlook.Application
 $mail = $outlook.CreateItem(0)
 $mail.To = $emailTo

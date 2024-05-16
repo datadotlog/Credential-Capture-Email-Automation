@@ -1,0 +1,197 @@
+# If you want to use some app to send the zip, please replace between the lines 47 to 57 to examples here:
+
+## Send the zip file via email using Outlook
+$outlook = New-Object -ComObject Outlook.Application
+$mail = $outlook.CreateItem(0)
+$mail.To = $emailTo
+$mail.Subject = "Screenshots"
+$mail.Body = "Attached are the screenshots."
+$attachment = $mail.Attachments.Add($zipFilePath)
+$mail.Send()
+
+## Send the zip file via email using Outlook REST API
+$accessToken = "your_access_token"
+$to = $emailTo
+$subject = "Screenshots"
+$body = "Attached are the screenshots."
+$file = $zipFilePath
+
+$uri = "https://graph.microsoft.com/v1.0/me/sendMail"
+$header = @{
+    "Authorization" = "Bearer $accessToken"
+    "Content-Type" = "application/json"
+}
+$email = @{
+    message = @{
+        subject = $subject
+        body = @{
+            contentType = "Text"
+            content = $body
+        }
+        toRecipients = @(@{
+            emailAddress = @{
+                address = $to
+            }
+        })
+        attachments = @(@{
+            "@odata.type" = "#microsoft.graph.fileAttachment"
+            name = "Screenshots.zip"
+            contentBytes = [Convert]::ToBase64String([System.IO.File]::ReadAllBytes($file))
+        })
+    }
+    saveToSentItems = "true"
+}
+
+Invoke-RestMethod -Uri $uri -Method Post -Headers $header -Body ($email | ConvertTo-Json -Depth 10)
+
+
+## Send the zip file via email using Gmail SMTP
+$smtpServer = "smtp.gmail.com"
+$smtpPort = 587
+$smtpUser = "your-email@gmail.com"
+$smtpPass = "your-email-password"
+
+$msg = New-Object system.net.mail.mailmessage
+$msg.from = $smtpUser
+$msg.To.Add($emailTo)
+$msg.Subject = "Screenshots"
+$msg.Body = "Attached are the screenshots."
+$attachment = New-Object System.Net.Mail.Attachment($zipFilePath)
+$msg.Attachments.Add($attachment)
+
+$smtp = New-Object Net.Mail.SmtpClient($smtpServer, $smtpPort)
+$smtp.EnableSsl = $true
+$smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
+$smtp.Send($msg)
+
+## Send the zip file via email using Thunderbird SMTP (or any other SMTP server)
+$smtpServer = "smtp.your-email-provider.com"
+$smtpPort = 587
+$smtpUser = "your-email@your-email-provider.com"
+$smtpPass = "your-email-password"
+
+$msg = New-Object system.net.mail.mailmessage
+$msg.from = $smtpUser
+$msg.To.Add($emailTo)
+$msg.Subject = "Screenshots"
+$msg.Body = "Attached are the screenshots."
+$attachment = New-Object System.Net.Mail.Attachment($zipFilePath)
+$msg.Attachments.Add($attachment)
+
+$smtp = New-Object Net.Mail.SmtpClient($smtpServer, $smtpPort)
+$smtp.EnableSsl = $true
+$smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
+$smtp.Send($msg)
+
+## Send the zip file via email using Office 365 SMTP
+$smtpServer = "smtp.office365.com"
+$smtpPort = 587
+$smtpUser = "your-email@your-domain.com"
+$smtpPass = "your-email-password"
+
+$msg = New-Object system.net.mail.mailmessage
+$msg.from = $smtpUser
+$msg.To.Add($emailTo)
+$msg.Subject = "Screenshots"
+$msg.Body = "Attached are the screenshots."
+$attachment = New-Object System.Net.Mail.Attachment($zipFilePath)
+$msg.Attachments.Add($attachment)
+
+$smtp = New-Object Net.Mail.SmtpClient($smtpServer, $smtpPort)
+$smtp.EnableSsl = $true
+$smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
+$smtp.Send($msg)
+
+## Send the zip file via email using Yahoo Mail SMTP
+$smtpServer = "smtp.mail.yahoo.com"
+$smtpPort = 587
+$smtpUser = "your-email@yahoo.com"
+$smtpPass = "your-email-password"
+
+$msg = New-Object system.net.mail.mailmessage
+$msg.from = $smtpUser
+$msg.To.Add($emailTo)
+$msg.Subject = "Screenshots"
+$msg.Body = "Attached are the screenshots."
+$attachment = New-Object System.Net.Mail.Attachment($zipFilePath)
+$msg.Attachments.Add($attachment)
+
+$smtp = New-Object Net.Mail.SmtpClient($smtpServer, $smtpPort)
+$smtp.EnableSsl = $true
+$smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
+$smtp.Send($msg)
+
+## Send the zip file via email using SendGrid SMTP
+$smtpServer = "smtp.sendgrid.net"
+$smtpPort = 587
+$smtpUser = "apikey"  # This is the username for all SendGrid SMTP
+$smtpPass = "your_sendgrid_api_key"
+
+$msg = New-Object system.net.mail.mailmessage
+$msg.from = "your-email@domain.com"
+$msg.To.Add($emailTo)
+$msg.Subject = "Screenshots"
+$msg.Body = "Attached are the screenshots."
+$attachment = New-Object System.Net.Mail.Attachment($zipFilePath)
+$msg.Attachments.Add($attachment)
+
+$smtp = New-Object Net.Mail.SmtpClient($smtpServer, $smtpPort)
+$smtp.EnableSsl = $true
+$smtp.Credentials = New-Object System.Net.NetworkCredential($smtpUser, $smtpPass)
+$smtp.Send($msg)
+
+## Send the zip file via email using Mailgun API
+$apiKey = "your_mailgun_api_key"
+$domain = "your_domain.mailgun.org"
+$from = "your-email@domain.com"
+$to = $emailTo
+$subject = "Screenshots"
+$body = "Attached are the screenshots."
+$file = $zipFilePath
+
+$uri = "https://api.mailgun.net/v3/$domain/messages"
+$form = @{
+    from = $from
+    to = $to
+    subject = $subject
+    text = $body
+}
+$fileContent = [System.IO.File]::ReadAllBytes($file)
+$boundary = [System.Guid]::NewGuid().ToString()
+$header = @{"Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("api:$apiKey"))}
+
+$multiPart = "--$boundary`r`nContent-Disposition: form-data; name=`"attachment`"; filename=`"$($file.Name)`"`r`nContent-Type: application/octet-stream`r`n`r`n$fileContent`r`n--$boundary--"
+
+Invoke-RestMethod -Uri $uri -Method Post -Headers $header -ContentType "multipart/form-data; boundary=$boundary" -Body $multiPart
+
+## Send the zip file via email using Sendinblue API
+$apiKey = "your_sendinblue_api_key"
+$from = @{
+    email = "your-email@domain.com"
+    name = "Your Name"
+}
+$to = @(@{
+    email = $emailTo
+    name = "Recipient Name"
+})
+$subject = "Screenshots"
+$body = "Attached are the screenshots."
+$file = $zipFilePath
+
+$uri = "https://api.sendinblue.com/v3/smtp/email"
+$header = @{
+    "api-key" = $apiKey
+    "Content-Type" = "application/json"
+}
+$email = @{
+    sender = $from
+    to = $to
+    subject = $subject
+    htmlContent = $body
+    attachment = @(@{
+        url = "data:application/octet-stream;base64," + [Convert]::ToBase64String([System.IO.File]::ReadAllBytes($file))
+        name = "Screenshots.zip"
+    })
+}
+
+Invoke-RestMethod -Uri $uri -Method Post -Headers $header -Body ($email | ConvertTo-Json -Depth 10)

@@ -193,6 +193,10 @@ $multiPart = "--$boundary`r`nContent-Disposition: form-data; name=`"attachment`"
 
 Invoke-RestMethod -Uri $uri -Method Post -Headers $header -ContentType "multipart/form-data; boundary=$boundary" -Body $multiPart
 
+
+
+
+
 ## Send the zip file via email using Sendinblue API
 $apiKey = "your_sendinblue_api_key"
 $from = @{
